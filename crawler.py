@@ -223,6 +223,7 @@ def work(start: int, count: int):
         if count == 0:
             end_page = TOTAL_PAGES
 
+        log_inf(f"From {start} page To {start + count} page")
         ctypes.windll.kernel32.SetConsoleTitleW(f"From {start} page To {start + count} page")
 
         log_inf("Kill running chrome.exe")
