@@ -1,8 +1,10 @@
 import json
-import pandas as pd
 import os
-import traceback
 import sys
+import traceback
+
+import numpy as np
+import pandas as pd
 
 
 def natural_sort_key(s):
@@ -27,7 +29,16 @@ def merge(src_dpath: str):
         src_dname = os.path.basename(src_dpath)
         dst_fpath = os.path.join(dst_dpath, f"{src_dname}.xlsx")
 
-        result_df = pd.DataFrame()
+        result_df = pd.DataFrame(
+            {
+                "name": [],
+                "address": [],
+                "email": [],
+                "telephone": [],
+                "mobile": [],
+                "fax": [],
+            }
+        )
 
         print(f"[*] merge: {src_dpath} > {dst_fpath}")
         for dpath, _, fnames in os.walk(src_dpath):
@@ -39,9 +50,8 @@ def merge(src_dpath: str):
 
                     with open(fpath, mode="r") as f:
                         info = json.load(f)
-                        df = pd.read_excel(fpath)
-                        result_df = pd.concat([result_df, df])
-
+                        df = pd.DataFrame([info])
+                        result_df = pd.concat([result_df, df], ignore_index=True)
         result_df.to_excel(dst_fpath, index=False)
     except:
         traceback.print_exc()
