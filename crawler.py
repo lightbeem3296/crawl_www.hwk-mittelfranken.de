@@ -130,6 +130,7 @@ def fetch(url: str, delay: float = 1.0) -> Optional[BeautifulSoup]:
                         "User-Agent": USER_AGENT,
                     },
                     verify=False,
+                    timeout=15.0,
                 )
 
                 if resp.status_code == 200:
