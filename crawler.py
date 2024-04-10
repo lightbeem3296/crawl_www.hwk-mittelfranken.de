@@ -37,18 +37,18 @@ CHROME = None
 # PAGE_SIZE = 10
 
 # Rostock
-HOME_URL = "https://www.hwk-omv.de/betriebe/suche-18,57,bdbsearch.html?search-searchterm=&search-filter-zipcode=Rostock&search-filter-radius=250&search-filter-jobnr=&search-job=&search-local=&search-filter-training=&search-filter-experience="
-BASE_URL = "https://www.hwk-omv.de"
-COOKIE_DOMAIN = ".hwk-omv.de"
-TOTAL_PAGES = 587
-PAGE_SIZE = 10
+# HOME_URL = "https://www.hwk-omv.de/betriebe/suche-18,57,bdbsearch.html?search-searchterm=&search-filter-zipcode=Rostock&search-filter-radius=250&search-filter-jobnr=&search-job=&search-local=&search-filter-training=&search-filter-experience="
+# BASE_URL = "https://www.hwk-omv.de"
+# COOKIE_DOMAIN = ".hwk-omv.de"
+# TOTAL_PAGES = 587
+# PAGE_SIZE = 10
 
 # Köln
-# HOME_URL = "https://www.hwk-koeln.de/betriebe/suche-32,0,bdbsearch.html?search-searchterm=&search-filter-zipcode=50667&search-filter-radius=250&search-filter-jobnr=&search-job=&search-local=&search-filter-experience="
-# BASE_URL = "https://www.hwk-koeln.de"
-# COOKIE_DOMAIN = ".hwk-koeln.de"
-# TOTAL_PAGES = 2716
-# PAGE_SIZE = 10
+HOME_URL = "https://www.hwk-koeln.de/betriebe/suche-32,0,bdbsearch.html?search-searchterm=&search-filter-zipcode=50667&search-filter-radius=250&search-filter-jobnr=&search-job=&search-local=&search-filter-experience="
+BASE_URL = "https://www.hwk-koeln.de"
+COOKIE_DOMAIN = ".hwk-koeln.de"
+TOTAL_PAGES = 2716
+PAGE_SIZE = 10
 
 
 def gen_page_url(page_index: int) -> str:
@@ -56,10 +56,10 @@ def gen_page_url(page_index: int) -> str:
     # page_link = f"https://www.hwk-mittelfranken.de/betriebe/suche-75,0,bdbsearch.html?search-searchterm=&search-job=&search-local=&search-filter-zipcode=90402&search-filter-latitude=49.453333&search-filter-longitude=11.091667&search-filter-radius=250&search-filter-jobnr=&search-filter-training=&search-filter-experience=&limit={PAGE_SIZE}&offset={page_index * PAGE_SIZE}"
 
     # Rostock
-    page_link = f"https://www.hwk-omv.de/betriebe/suche-18,57,bdbsearch.html?limit={PAGE_SIZE}&search-searchterm=&search-job=&search-local=&search-filter-zipcode=Rostock&search-filter-radius=250&search-filter-jobnr=&search-filter-training=&search-filter-experience=&offset={page_index * PAGE_SIZE}"
+    # page_link = f"https://www.hwk-omv.de/betriebe/suche-18,57,bdbsearch.html?limit={PAGE_SIZE}&search-searchterm=&search-job=&search-local=&search-filter-zipcode=Rostock&search-filter-radius=250&search-filter-jobnr=&search-filter-training=&search-filter-experience=&offset={page_index * PAGE_SIZE}"
 
     # Köln
-    # page_link = f"https://www.hwk-koeln.de/betriebe/suche-32,0,bdbsearch.html?limit={PAGE_SIZE}&search-searchterm=&search-job=&search-local=&search-filter-zipcode=50667&search-filter-latitude=50.941389&search-filter-longitude=6.953611&search-filter-radius=250&search-filter-jobnr=&search-filter-experience=&offset={page_index * PAGE_SIZE}"
+    page_link = f"https://www.hwk-koeln.de/betriebe/suche-32,0,bdbsearch.html?limit={PAGE_SIZE}&search-searchterm=&search-job=&search-local=&search-filter-zipcode=50667&search-filter-latitude=50.941389&search-filter-longitude=6.953611&search-filter-radius=250&search-filter-jobnr=&search-filter-experience=&offset={page_index * PAGE_SIZE}"
 
     return page_link
 
