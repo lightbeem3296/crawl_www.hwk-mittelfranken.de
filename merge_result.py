@@ -27,9 +27,9 @@ def merge(src_dpath: str):
 
         dst_dpath = os.path.dirname(src_dpath)
         src_dname = os.path.basename(src_dpath)
-        dst_fpath = os.path.join(dst_dpath, f"{src_dname}.xlsx")
+        dst_fpath = os.path.join(dst_dpath, f"{src_dname}")
 
-        result_df = pd.DataFrame(
+        res0_df = pd.DataFrame(
             {
                 "name": [],
                 "address": [],
@@ -39,8 +39,22 @@ def merge(src_dpath: str):
                 "fax": [],
             }
         )
+        res1_df = pd.DataFrame(
+            {
+                "email": [],
+            }
+        )
+        res2_df = pd.DataFrame(
+            {
+                "name": [],
+                "address": [],
+                "telephone": [],
+                "mobile": [],
+                "fax": [],
+            }
+        )
 
-        print(f"[*] merge: {src_dpath} > {dst_fpath}")
+        print(f"[*] merge: {src_dpath} > {dst_fpath}.*")
         for dpath, _, fnames in os.walk(src_dpath):
             sorted_fnames = sorted(fnames, key=natural_sort_key)
             for fname in sorted_fnames:
@@ -50,9 +64,40 @@ def merge(src_dpath: str):
 
                     with open(fpath, mode="r") as f:
                         info = json.load(f)
-                        df = pd.DataFrame([info])
-                        result_df = pd.concat([result_df, df], ignore_index=True)
-        result_df.to_excel(dst_fpath, index=False)
+                        res0_df = pd.concat([res0_df, pd.DataFrame([info])], ignore_index=True)
+                        res1_df = pd.concat(
+                            [
+                                res1_df,
+                                pd.DataFrame(
+                                    [
+                                        {
+                                            "email": info["email"],
+                                        }
+                                    ]
+                                ),
+                            ],
+                            ignore_index=True,
+                        )
+                        res2_df = pd.concat(
+                            [
+                                res2_df,
+                                pd.DataFrame(
+                                    [
+                                        {
+                                            "name": info["name"],
+                                            "address": info["address"],
+                                            "telephone": info["telephone"],
+                                            "mobile": info["mobile"],
+                                            "fax": info["fax"],
+                                        }
+                                    ]
+                                ),
+                            ],
+                            ignore_index=True,
+                        )
+        res0_df.to_excel(dst_fpath+"_0.xlsx", index=False)
+        res1_df.to_excel(dst_fpath+"_1.xlsx", index=False)
+        res2_df.to_excel(dst_fpath+"_2.xlsx", index=False)
     except:
         traceback.print_exc()
 
