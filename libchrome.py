@@ -103,7 +103,7 @@ class Chrome:
             websocket_server.start()
 
             # copy extension to temp folder
-            ext_dir = os.path.join(TEMP_DIR, f"ext")
+            ext_dir = os.path.join(TEMP_DIR, f"ext_{datetime.now().timestamp()}")
             shutil.copytree(EXTENSION_DIR, ext_dir, dirs_exist_ok=True)
 
             # set extension port number
