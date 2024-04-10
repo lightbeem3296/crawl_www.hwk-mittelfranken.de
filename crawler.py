@@ -31,16 +31,22 @@ CHROME = None
 
 # Nürnberg
 # HOME_URL = "https://www.hwk-mittelfranken.de/betriebe/suche-75,0,bdbsearch.html?search-searchterm=&search-filter-zipcode=90402&search-filter-radius=250&search-filter-jobnr=&search-job=&search-local=&search-filter-training=&search-filter-experience="
+# BASE_URL = "https://www.hwk-mittelfranken.de"
+# COOKIE_DOMAIN = ".hwk-mittelfranken.de"
 # TOTAL_PAGES = 1439
 # PAGE_SIZE = 10
 
 # Rostock
 HOME_URL = "https://www.hwk-omv.de/betriebe/suche-18,57,bdbsearch.html?search-searchterm=&search-filter-zipcode=Rostock&search-filter-radius=250&search-filter-jobnr=&search-job=&search-local=&search-filter-training=&search-filter-experience="
+BASE_URL = "https://www.hwk-omv.de"
+COOKIE_DOMAIN = ".hwk-omv.de"
 TOTAL_PAGES = 587
 PAGE_SIZE = 10
 
 # Köln
 # HOME_URL = "https://www.hwk-koeln.de/betriebe/suche-32,0,bdbsearch.html?search-searchterm=&search-filter-zipcode=50667&search-filter-radius=250&search-filter-jobnr=&search-job=&search-local=&search-filter-experience="
+# BASE_URL = "https://www.hwk-koeln.de"
+# COOKIE_DOMAIN = ".hwk-koeln.de"
 # TOTAL_PAGES = 2716
 # PAGE_SIZE = 10
 
@@ -87,7 +93,7 @@ def get_cookie() -> Optional[str]:
             pass
 
         while True:
-            cookies = CHROME.cookie(".hwk-mittelfranken.de")
+            cookies = CHROME.cookie(COOKIE_DOMAIN)
             if cookies != None:
                 cookie_header = ""
                 for cookie in cookies:
@@ -111,8 +117,8 @@ def fetch(url: str, delay: float = 1.0) -> Optional[BeautifulSoup]:
 
     ret = None
     try:
-        if not url.startswith("https://www.hwk-mittelfranken.de"):
-            url = "https://www.hwk-mittelfranken.de" + url
+        if not url.startswith(BASE_URL):
+            url = BASE_URL + url
 
         while True:
             try:
