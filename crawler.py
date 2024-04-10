@@ -183,8 +183,8 @@ def crawl_page(page_index: int, page_link: str):
                                         log_err("email elem is none")
 
                                     # phone
-                                    contact = p_elem.text.strip()
-                                    words = contact.split("\n")
+                                    contact = p_elem.decode_contents()
+                                    words = contact.split("<br/>")
                                     for word in words:
                                         word = word.lower().strip()
                                         if word.startswith("telefon"):
