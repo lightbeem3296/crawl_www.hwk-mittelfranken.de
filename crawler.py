@@ -1,14 +1,14 @@
-import json
-import time
 import argparse
 import ctypes
+import json
 import os
+import time
 import traceback
+from datetime import datetime
 from pathlib import Path
 from random import randint
 from typing import Optional
 
-import pandas as pd
 import requests
 import urllib3
 from bs4 import BeautifulSoup
@@ -22,6 +22,7 @@ COOKIE = ""
 USER_AGENT = ""
 
 CUR_DIR = str(Path(__file__).parent.absolute())
+TEMP_DIR = os.path.join(CUR_DIR, "temp")
 OUTPUT_DIR = os.path.join(CUR_DIR, "output")
 DONE_MARKER_NAME = "done"
 
@@ -135,6 +136,8 @@ def crawl_page(page_index: int, page_link: str):
             if soup != None:
                 result_elems = soup.select(".searchhit-result")
                 for i, result_elem in enumerate(result_elems):
+                    log_inf(f"crawl page {page_index} > info {i}")
+
                     info_fpath = os.path.join(page_dir, f"{i}.json")
                     if os.path.isfile(info_fpath):
                         log_inf(f"page {page_index} > info {i} is already done")
@@ -226,12 +229,10 @@ def work(start: int, count: int):
         log_inf(f"From {start} page To {start + count} page")
         ctypes.windll.kernel32.SetConsoleTitleW(f"From {start} page To {start + count} page")
 
-        log_inf("Kill running chrome.exe")
-        os.system("taskkill /f /im chrome.exe")
-
         CHROME = Chrome(
             width=800 + randint(0, 200),
             height=600 + randint(0, 100),
+            user_data_dir=os.path.join(TEMP_DIR, f"profile_{datetime.now().timestamp()}"),
         )
         CHROME.start()
         USER_AGENT = CHROME.run_script("navigator.userAgent")
